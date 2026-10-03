@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GPA</title>
+<link rel="icon" id="fav" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14'/%3E%3Ctext x='32' y='47' font-size='42' font-weight='700' text-anchor='middle' fill='%23fff' font-family='sans-serif'%3E4%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#faf8f3;--bg2:#e9e4d8;--c1:#fff;--c2:#f6f0e4;--ink:#0b0b0b;--mute:#7b776c;--line:#e5dfd0;--chip:rgba(0,0,0,.05);--uf:#0021a5;--ufbar:#0021a5;--hot:#fa4616;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#1b1a17;--bg2:#100f0d;--c1:#262420;--c2:#1f1d19;--ink:#f4f1ea;--mute:#a09b8e;--line:#37342d;--chip:rgba(255,255,255,.07);--uf:#9fb1ff;--ufbar:#6f88ff}}
+:root[data-theme="dark"]{--bg1:#1b1a17;--bg2:#100f0d;--c1:#262420;--c2:#1f1d19;--ink:#f4f1ea;--mute:#a09b8e;--line:#37342d;--chip:rgba(255,255,255,.07);--uf:#9fb1ff;--ufbar:#6f88ff}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;min-height:100vh;background:linear-gradient(135deg,var(--bg1),var(--bg2)) fixed;color:var(--ink);font:400 15px/1.45 Inter,system-ui,sans-serif}
+main{max-width:640px;margin:0 auto;padding:26px 16px 48px;display:grid;gap:14px}
+h1{font-size:44px;font-weight:700;letter-spacing:-.03em;margin:0;line-height:1}
+.sub{color:var(--mute);margin:4px 0 0}
+.card{background:linear-gradient(160deg,var(--c1),var(--c2));border:1px solid var(--line);border-radius:26px;padding:20px;box-shadow:0 8px 24px rgba(60,50,30,.08)}
+.top{display:flex;justify-content:space-between;align-items:baseline}
+.top h2{margin:0;font-size:19px}.top span,.foot{color:var(--mute);font-size:13px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:14px}
+.lab{display:flex;justify-content:space-between;font-size:12px;letter-spacing:.08em;font-weight:600;color:var(--mute)}
+.big{font-size:clamp(40px,12vw,60px);font-weight:700;letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums;margin:4px 0 8px}
+.bar{height:5px;border-radius:5px;background:var(--chip);overflow:hidden}.bar i{display:block;height:100%;background:var(--ink);border-radius:5px;transition:width .3s}
+.ufbox{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.ufbox .lab{color:var(--uf)}.ufbox .big{color:var(--uf)}.ufbox .bar i{background:var(--ufbar)}
+.ufbox .tag{font-size:13px;color:var(--mute);margin:8px 0 0}
+.foot{margin-top:12px}
+.seg{display:grid;gap:4px;background:var(--chip);padding:4px;border-radius:18px}
+.yrs{grid-template-columns:repeat(4,1fr)}.mode{grid-template-columns:1fr 1fr}
+.seg button{font:inherit;color:var(--mute);background:none;border:0;border-radius:14px;padding:9px 4px;cursor:pointer;font-variant-numeric:tabular-nums}
+.seg button.on{background:var(--c1);color:var(--ink);box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.seg b{display:block;font-weight:600}.seg small{display:block;font-size:12px}
+.hdr{display:flex;justify-content:space-between;font-size:12px;letter-spacing:.08em;font-weight:600;color:var(--mute);padding:0 4px 8px;border-bottom:1px solid var(--line)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:14px 4px;border-bottom:1px solid var(--line)}
+.row .n{flex:1 1 100%;font-size:17px;font-weight:500}
+input,select{font:inherit;color:var(--ink);background:var(--chip);border:1px solid transparent;border-radius:10px;padding:8px 9px;min-width:0}
+input.n{background:none;padding:0;border-radius:0}
+.u{display:flex;gap:6px;align-items:center;color:var(--mute);font-size:13px;margin-left:auto;font-variant-numeric:tabular-nums}
+.p{text-align:right;min-width:62px;font-variant-numeric:tabular-nums}.p b{display:block;font-size:19px}.p small{color:var(--mute);font-size:12px}
+.x{font:inherit;font-size:20px;line-height:1;background:none;border:0;color:var(--mute);cursor:pointer;padding:4px 8px}
+.acts{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.acts button{font:inherit;font-weight:500;border-radius:12px;padding:10px 16px;cursor:pointer;border:1px solid var(--ink);background:var(--ink);color:var(--bg1)}
+.acts .g{background:none;color:var(--ink);border-color:var(--line)}
+.gf{display:grid;grid-template-columns:1fr 1fr;gap:12px}.gf label{font-size:13px;color:var(--mute)}.gf input{width:100%;font-size:20px;font-weight:600;margin-top:4px}
+details{font-size:13.5px;color:var(--mute)}summary{cursor:pointer;color:var(--ink);font-weight:500}
+details p{margin:8px 0 0;max-width:62ch}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--hot);outline-offset:2px}
+#empty{color:var(--mute);padding:14px 4px 0}
+</style>
+</head>
+<body>
+<main>
+<header><h1>GPA</h1><p class="sub">Weighted, unweighted, cumulative, and UF's version</p></header>
+
+<section class="card">
+  <div class="top"><h2>Cumulative</h2><span id="yrs"></span></div>
+  <div class="two">
+    <div><div class="lab"><span>WEIGHTED</span><span>/ 5.33</span></div><div class="big" id="w">—</div><div class="bar"><i id="bw"></i></div></div>
+    <div><div class="lab"><span>UNWEIGHTED</span><span>/ 4.33</span></div><div class="big" id="un">—</div><div class="bar"><i id="bu"></i></div></div>
+  </div>
+  <div class="ufbox">
+    <div class="lab"><span>UF GPA</span><span>/ 5.0</span></div>
+    <div class="big" id="uf">—</div><div class="bar"><i id="bf"></i></div>
+    <p class="tag">How UF would recalculate it: core classes only, A+ counts as A.</p>
+  </div>
+  <div class="foot" id="cnt"></div>
+</section>
+
+<div class="seg yrs" id="tabs"></div>
+<div class="seg mode" id="mode"><button data-m="c">Classes</button><button data-m="g">Enter GPA</button></div>
+
+<section class="card">
+  <div class="lab"><span id="ylab">WEIGHTED</span><span>/ 5.33</span></div>
+  <div class="big" id="yw">—</div>
+  <div class="foot" id="yuf"></div>
+</section>
+
+<section class="card" id="cls">
+  <div class="hdr"><span>CLASS</span><span>POINTS</span></div>
+  <div id="rows"></div>
+  <div id="empty" hidden>No classes yet. Add this year's classes to see how they change your GPA.</div>
+  <div class="acts"><button id="add">Add class</button><button class="g" id="reset">Reset to my classes</button></div>
+</section>
+
+<section class="card" id="gpf" hidden>
+  <div class="gf">
+    <div><label for="gw">Year weighted GPA</label><input id="gw" inputmode="decimal" placeholder="4.40"></div>
+    <div><label for="gu">Year unweighted GPA</label><input id="gu" inputmode="decimal" placeholder="3.80"></div>
+  </div>
+  <p class="foot">A year entered this way counts as 6 classes in your cumulative GPA, and UF's version leaves it out because UF needs individual classes.</p>
+</section>
+
+<section class="card">
+<details><summary>Grade scale &amp; weighting</summary>
+<p><b>Your school:</b> A+ 4.33, A 4.0, A- 3.7, B+ 3.3, B 3.0, B- 2.7, C+ 2.3, C 2.0, C- 1.7, D+ 1.3, D 1.0, F 0. AP adds 1.0 and honors adds 0.5. Every class counts.</p>
+<p><b>UF GPA:</b> counts core academic classes (English, math, science, social science, foreign language, and computer science here) on a 4.0 scale, so A+ counts as A. AP, IB, AICE and dual enrollment add 1.0, honors adds 0.5. UF doesn't publish how it treats plus/minus grades, so those use your school's values. Untick UF on classes it wouldn't count, like electives. This is an estimate, not UF's official number.</p>
+</details>
+</section>
+</main>
+<script>
+const BASE={'A+':4.33,'A':4,'A-':3.7,'B+':3.3,'B':3,'B-':2.7,'C+':2.3,'C':2,'C-':1.7,'D+':1.3,'D':1,'F':0};
+const W={AP:1,Honors:.5,Regular:0};
+const mk=(n,g,t,u=true)=>({n,g,t,u});
+const DEF=()=>({
+ 9:{m:'c',gw:'',gu:'',cl:[mk('AP Human Geo','A','AP'),mk('Geometry Honors','A','Honors'),mk('AP Comp Sci Principles','A','AP'),mk('Chemistry Honors','B','Honors'),mk('English 1 Honors','A-','Honors'),mk('Sculpture and Ceramics 1','A','Regular',false),mk('Chinese 2','A-','Regular')]},
+ 10:{m:'c',gw:'',gu:'',cl:[mk('AP Lang','A-','AP'),mk('Algebra 2 Honors','B+','Honors'),mk('AP Comp Sci A','A','AP'),mk('Bio Honors','B+','Honors'),mk('APUSH','A','AP'),mk('Chinese 3','A','Regular')]},
+ 11:{m:'c',gw:'',gu:'',cl:[mk('AP Bio','B-','AP'),mk('Pre-calc Honors','A-','Honors'),mk('AP Euro','A+','AP'),mk('AP Psych','A','AP'),mk('Chinese 4','A+','Regular'),mk('AP Lit','B+','AP')]},
+ 12:{m:'c',gw:'',gu:'',cl:[]}});
+const KEY='gpa-uf-v2',YRS=[9,10,11,12];
+let S,cur=11,armed=false;
+try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+if(!S||!S[9])S=DEF();
+const $=s=>document.querySelector(s);
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const sum=a=>a.reduce((p,q)=>p+q,0);
+const wt=c=>c.g==='F'?0:W[c.t];
+const sp=c=>BASE[c.g]+wt(c);
+const up=c=>c.u?Math.min(BASE[c.g],4)+wt(c):null;
+function st(y){const d=S[y];
+ if(d.m==='g'){const a=parseFloat(d.gw),b=parseFloat(d.gu);return isNaN(a)||isNaN(b)?{n:0,sw:0,su:0,sf:0,nf:0}:{n:6,sw:a*6,su:b*6,sf:0,nf:0}}
+ const c=d.cl,f=c.filter(x=>x.u);
+ return{n:c.length,sw:sum(c.map(sp)),su:sum(c.map(x=>BASE[x.g])),sf:sum(f.map(up)),nf:f.length}}
+const dv=(a,b)=>b?a/b:null;
+const f3=x=>x==null?'—':x.toFixed(3);
+const pct=(x,m)=>x==null?0:Math.min(100,x/m*100)+'%';
+function update(){
+ const s=YRS.map(st),T=k=>sum(s.map(x=>x[k]));
+ const w=dv(T('sw'),T('n')),u=dv(T('su'),T('n')),f=dv(T('sf'),T('nf'));
+ $('#w').textContent=f3(w);$('#un').textContent=f3(u);$('#uf').textContent=f3(f);
+ try{const c=document.createElement('canvas');c.width=c.height=64;const x=c.getContext('2d');x.fillStyle='#000';x.beginPath();x.roundRect(0,0,64,64,14);x.fill();x.fillStyle='#fff';x.font='700 42px sans-serif';x.textAlign='center';x.fillText(w==null?'-':String(Math.floor(w)),32,48);$('#fav').href=c.toDataURL()}catch(e){}
+ $('#bw').style.width=pct(w,5.33);$('#bu').style.width=pct(u,4.33);$('#bf').style.width=pct(f,5);
+ const ny=s.filter(x=>x.n).length;
+ $('#yrs').textContent=ny+' of 4 years so far';
+ $('#cnt').textContent=ny+' years · '+T('n')+' classes · UF counts '+T('nf');
+ YRS.forEach((y,i)=>{$('#t'+y+' small').textContent=f3(dv(s[i].sw,s[i].n))});
+ const c=s[YRS.indexOf(cur)];
+ $('#yw').textContent=f3(dv(c.sw,c.n));
+ $('#yuf').textContent='UF GPA for this year: '+f3(dv(c.sf,c.nf));
+ document.querySelectorAll('.row').forEach(r=>{const k=S[cur].cl[r.dataset.i],x=up(k);
+  r.querySelector('.p').innerHTML='<b>'+sp(k).toFixed(2)+'</b><small>'+(k.t==='Regular'?'unweighted':BASE[k.g]+' base')+'</small>';
+  r.querySelector('.uv').textContent=x==null?'—':x.toFixed(2)});
+ save();
+}
+function render(){
+ const d=S[cur];
+ $('#tabs').innerHTML=YRS.map(y=>'<button data-y="'+y+'" id="t'+y+'" class="'+(y===cur?'on':'')+'"><b>'+y+'th</b><small></small></button>').join('');
+ document.querySelectorAll('#mode button').forEach(b=>b.classList.toggle('on',b.dataset.m===d.m));
+ $('#cls').hidden=d.m!=='c';$('#gpf').hidden=d.m!=='g';
+ $('#gw').value=d.gw;$('#gu').value=d.gu;
+ const box=$('#rows');box.textContent='';
+ d.cl.forEach((c,i)=>{
+  const r=document.createElement('div');r.className='row';r.dataset.i=i;
+  r.innerHTML='<input class="n" aria-label="Class name"><select class="g" aria-label="Grade">'+Object.keys(BASE).map(k=>'<option>'+k+'</option>').join('')+'</select><select class="t" aria-label="Class type"><option>AP</option><option>Honors</option><option>Regular</option></select><label class="u"><input type="checkbox" class="k"> UF <span class="uv"></span></label><span class="p"></span><button class="x" aria-label="Remove class">×</button>';
+  const n=r.querySelector('.n'),g=r.querySelector('.g'),t=r.querySelector('.t'),k=r.querySelector('.k');
+  n.value=c.n;g.value=c.g;t.value=c.t;k.checked=c.u;
+  n.oninput=()=>{c.n=n.value;save()};
+  g.onchange=()=>{c.g=g.value;update()};
+  t.onchange=()=>{c.t=t.value;update()};
+  k.onchange=()=>{c.u=k.checked;update()};
+  r.querySelector('.x').onclick=()=>{d.cl.splice(i,1);render()};
+  box.appendChild(r);
+ });
+ $('#empty').hidden=d.cl.length>0;
+ update();
+}
+$('#tabs').onclick=e=>{const b=e.target.closest('button');if(b){cur=+b.dataset.y;render()}};
+$('#mode').onclick=e=>{const b=e.target.closest('button');if(b){S[cur].m=b.dataset.m;render()}};
+$('#gw').oninput=e=>{S[cur].gw=e.target.value;update()};
+$('#gu').oninput=e=>{S[cur].gu=e.target.value;update()};
+$('#add').onclick=()=>{S[cur].cl.push(mk('New class','A','Regular'));render();const n=document.querySelectorAll('.row .n'),l=n[n.length-1];l.focus();l.select()};
+$('#reset').onclick=()=>{
+ if(!armed){armed=true;$('#reset').textContent='Click again to reset everything';setTimeout(()=>{armed=false;$('#reset').textContent='Reset to my classes'},3000);return}
+ armed=false;S=DEF();render();$('#reset').textContent='Reset to my classes';
+};
+render();
+</script>
+</body>
+</html>
